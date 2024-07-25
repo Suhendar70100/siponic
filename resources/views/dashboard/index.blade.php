@@ -15,7 +15,7 @@
                 <option value="{{ $item->id }}">{{ $item->guid }} - {{ $item->note }}</option>
               @endforeach
             </select>
-            <button type="button" class="btn btn-primary mt-3 btn-filter">Filter</button>
+            <button type="button" class="btn btn-primary mt-3 btn-filter">Submit</button>
           </div>
         </div>
       </div>

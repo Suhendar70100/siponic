@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     deviceSelect.select2({
-        placeholder: 'Pilih Device',
+        placeholder: 'Pilih Perangkat',
         allowClear: true,
     });
 
@@ -295,14 +295,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const realTimeChart1Config = {
         data: [[], [], []],
         categories: [],
-        text: 'Real-time Water pH, Temperature, Humidity',
+        text: 'pH Air, Suhu, Kelembaban',
         label: 'Value',
     };
 
     const realTimeChart2Config = {
         data: [[], [], []],
         categories: [],
-        text: 'Real-time PPM, Max PPM, Min PPM',
+        text: 'PPM, Max PPM, Min PPM',
         label: 'Value',
     };
 

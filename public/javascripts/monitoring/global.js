@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     deviceSelect.select2({
-        placeholder: 'Pilih Device',
+        placeholder: 'Pilih Perangkat',
         allowClear: true,
     });
 
