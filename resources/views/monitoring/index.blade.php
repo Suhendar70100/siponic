@@ -13,10 +13,10 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-12 order-2 order-md-1">
                         <div class="card-header d-flex align-items-center justify-content-between">
-                            <h4 class="card-title">Pilih Device</h4>
+                            <h4 class="card-title">Pilih Perangkat</h4>
                         </div>
                         <div class="card-body">
-                            <label for="device">Pilih Device</label>
+                            <label for="device">Pilih Perangkat</label>
                             <select class="form-control select2" name="device" id="device">
                                 <option value=""></option>
                                 @foreach($devices as $item)
