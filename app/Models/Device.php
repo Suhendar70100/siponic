@@ -13,7 +13,7 @@ class Device extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'int';
     public $timestamps = true;
-    public $incrementing = false;
+    public $incrementing = true;
 
     protected $fillable = [
         'guid',

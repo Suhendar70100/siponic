@@ -9,14 +9,17 @@ use App\Models\Garden;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use PhpMqtt\Client\MqttClient;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\DeviceCreateRequest;
 use App\Http\Requests\DeviceUpdateRequest;
+use PhpMqtt\Client\Exceptions\MqttClientException;
 
 class DeviceController extends Controller
 {
@@ -73,13 +76,70 @@ class DeviceController extends Controller
             $data = $request->validated();
             $data['guid'] = Str::upper($data['guid']);
 
-            Device::query()->create($data);
+            $device = Device::create($data);
 
-            return response()->json(['message' => 'Data berhasil di tambahkan'], 201);
+            $mqttData = [
+                'device_id' => $device->id,
+                'min_ppm' => $device->min_ppm,
+                'max_ppm' => $device->max_ppm,
+            ];
+
+            Log::info('Device created:', $mqttData);
+
+            $this->sendDataToMqtt($mqttData);
+
+            return response()->json(['message' => 'Data berhasil ditambahkan'], 201);
         } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+            Log::error('Error adding device: ' . $e->getMessage());
+            return response()->json(['message' => 'Data gagal ditambahkan: ' . $e->getMessage()], 500);
         }
     }
+
+    protected function sendDataToMqtt(array $data)
+{
+    $host = env('MQTT_HOST', 'broker.hivemq.com');
+    $port = env('MQTT_PORT', 1883);
+    $clientId = env('MQTT_CLIENT_ID', 'laravel-client');
+    $username = trim(env('MQTT_USERNAME', ''));
+    $password = env('MQTT_PASSWORD', '');
+
+    Log::info("Connecting to MQTT broker at {$host}:{$port} with client ID {$clientId}");
+    Log::info("Using username: '{$username}'");
+
+    $client = new MqttClient($host, $port, $clientId);
+
+    $connectionSettings = (new \PhpMqtt\Client\ConnectionSettings)
+        ->setKeepAliveInterval(60)
+        ->setConnectTimeout(5)
+        ->setMaxReconnectAttempts(3)
+        ->setLastWillTopic('siponic/device/disconnect')
+        ->setLastWillMessage(json_encode($data))
+        ->setLastWillQualityOfService(0);
+
+    if (!empty($username)) {
+        $connectionSettings->setUsername($username);
+        if (!empty($password)) {
+            $connectionSettings->setPassword($password);
+        }
+    }
+
+    try {
+        $client->connect($connectionSettings, true);
+        Log::info('Connected to MQTT broker');
+
+        $client->publish('siponic/device/setPoint', json_encode($data), 0);
+        Log::info('Data published to MQTT', $data);
+
+        sleep(2);
+
+        $client->disconnect();
+        Log::info('Disconnected from MQTT broker');
+    } catch (MqttClientException $e) {
+        Log::error('MQTT Client Exception: ' . $e->getMessage());
+    } catch (Exception $e) {
+        Log::error('Error sending data to MQTT: ' . $e->getMessage());
+    }
+}
 
     public function show($id): JsonResponse
     {
@@ -97,6 +157,16 @@ class DeviceController extends Controller
         try {
             $device = Device::find($id);
             $device->update($request->all());
+
+            $mqttData = [
+                'device_id' => $device->id,
+                'min_ppm' => $device->min_ppm,
+                'max_ppm' => $device->max_ppm,
+            ];
+
+            Log::info('Device updated:', $mqttData);
+
+            $this->sendDataToMqtt($mqttData);
 
             return response()->json(['message' => 'Perangkat berhasil di ubah']);
         } catch (Exception $exception) {
