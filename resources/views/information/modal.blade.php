@@ -14,7 +14,7 @@
                 <select id="device_id" name="device" class="form-control list-device">
                   <option value=""></option>
                   @foreach($device as $item)
-                      <option value="{{ $item->id }}">{{ $item->id }} - {{ $item->note }}</option>
+                      <option value="{{ $item->id }}">{{ $item->guid }} - {{ $item->plants }}</option>
                   @endforeach
               </select>        
                 <div class="invalid-feedback"></div>

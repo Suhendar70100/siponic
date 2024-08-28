@@ -42,7 +42,7 @@ const getInitData = () => {
         serverSide: true,
         ajax: informationUrl,
         columns: [
-            {data: 'note', name: 'note'},
+            {data: 'plants', name: 'plants'},
             {
                 data: 'seeding_start_date',
                 name: 'seeding_start_date',

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->float('temperature')->default(0);
             $table->float('humidity')->default(0);
             $table->float('ppm')->default(0);
-            $table->dateTime('send_at')->nullable();
             $table->timestamps();
         });
     }

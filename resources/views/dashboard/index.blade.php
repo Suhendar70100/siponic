@@ -12,7 +12,7 @@
             <select class="form-control select2" name="device" id="device">
               <option value=""></option>
               @foreach($devices as $item)
-                <option value="{{ $item->id }}">{{ $item->guid }} - {{ $item->note }}</option>
+                <option value="{{ $item->id }}">{{ $item->guid }} - {{ $item->plants }}</option>
               @endforeach
             </select>
             <button type="button" class="btn btn-primary mt-3 btn-filter">Submit</button>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-7 col-md-9 col-12 order-2 order-md-1">
-                        <h6 class="text-white mt-0 mt-md-3 mb-3 py-1">{{ $item['device']['note'] }}</h6>
+                        <h6 class="text-white mt-0 mt-md-3 mb-3 py-1">{{ $item['device']['plants'] }}</h6>
                         <div class="row">
                             <div class="col-12">
                                 <ul class="list-unstyled mb-0">
@@ -76,9 +76,6 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-5 col-md-3 col-12 order-1 order-md-2 my-2 my-md-0 text-center">
-                        <img src="../../assets/img/products/card-weekly-sales-phone.png" alt="weekly sales" width="230" class="weekly-sales-img" />
                     </div>
                 </div>
             </div>
@@ -109,9 +106,6 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-5 col-md-3 col-12 order-1 order-md-2 my-2 my-md-0 text-center">
-                        <img src="../../assets/img/products/card-weekly-sales-phone.png" alt="weekly sales" width="230" class="weekly-sales-img" />
                     </div>
                 </div>
             </div>

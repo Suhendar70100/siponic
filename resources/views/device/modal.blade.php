@@ -23,13 +23,6 @@
           </div>
           <div class="col-12">
             <div class="form-floating form-floating-outline">
-              <input id="guid" name="guid" class="form-control credit-card-mask" type="text" placeholder="A1:B2:C3:D4:F5:C6"/>
-              <div class="invalid-feedback"></div>
-              <label for="modalAddCard">GUID Perangkat</label>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="form-floating form-floating-outline">
               <input id="max_ppm" name="max_ppm" class="form-control credit-card-mask" type="number" placeholder="maksimal nutrisi"/>
               <div class="invalid-feedback"></div>
               <label for="modalAddCard">Maksimal Nutrisi</label>
@@ -45,9 +38,9 @@
           <div class="col-12">
               <div class="form-floating form-floating-outline">
                 <p class="invalid-feedback"></p>
-                <input id="note" name="note" class="form-control credit-card-mask" type="text" placeholder="keterangan"/>
+                <input id="plants" name="plants" class="form-control credit-card-mask" type="text" placeholder="Tanaman"/>
                 <div class="invalid-feedback"></div>
-                <label for="modalAddCard">Keterangan</label>
+                <label for="modalAddCard">Tanaman</label>
               </div>
           </div>
           <div class="col-12 text-center">

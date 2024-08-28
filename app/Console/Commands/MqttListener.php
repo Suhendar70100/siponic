@@ -71,7 +71,7 @@ class MqttListener extends Command
         try {
             $data = json_decode($msg, true);
 
-            if (isset($data['device_id']) && isset($data['water_ph']) && isset($data['temperature']) && isset($data['humidity']) && isset($data['ppm']) && isset($data['send_at'])) {
+            if (isset($data['device_id']) && isset($data['water_ph']) && isset($data['temperature']) && isset($data['humidity']) && isset($data['ppm'])) {
                 $device = DB::table('device')->where('id', $data['device_id'])->first();
 
                 if ($device) {
@@ -81,7 +81,6 @@ class MqttListener extends Command
                         'temperature' => $data['temperature'],
                         'humidity' => $data['humidity'],
                         'ppm' => $data['ppm'],
-                        'send_at' => $data['send_at'],
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]);

@@ -24,49 +24,6 @@ class MonitoringController extends Controller
         return view('monitoring.index', compact('devices'));
     }
 
-    // public function getDailyAverages(Request $request)
-    // {
-    //     $deviceId = $request->input('device_id');
-    //     $month = $request->input('month'); 
-    //     $startOfMonth = Carbon::parse($month)->startOfMonth();
-    //     $endOfMonth = Carbon::parse($month)->endOfMonth();
-
-    //     $sensors = Sensor::where('device_id', $deviceId)
-    //         ->whereBetween('send_at', [$startOfMonth, $endOfMonth])
-    //         ->select(
-    //             DB::raw('DATE(send_at) as date'),
-    //             DB::raw('AVG(water_ph) as avg_water_ph'),
-    //             DB::raw('AVG(temperature) as avg_temperature'),
-    //             DB::raw('AVG(humidity) as avg_humidity'),
-    //             DB::raw('AVG(ppm) as avg_ppm')
-    //         )
-    //         ->groupBy('date')
-    //         ->get();
-
-    //     $data = [
-    //         'dates' => [],
-    //         'water_ph' => [],
-    //         'temperature' => [],
-    //         'humidity' => [],
-    //         'ppm' => [],
-    //     ];
-
-    //     for ($day = 1; $day <= $endOfMonth->day; $day++) {
-    //         $date = $startOfMonth->copy()->day($day)->format('Y-m-d');
-    //         $dailyData = $sensors->firstWhere('date', $date);
-
-    //         $data['dates'][] = (string) $day;
-    //         $data['water_ph'][] = $dailyData->avg_water_ph ?? 0;
-    //         $data['temperature'][] = $dailyData->avg_temperature ?? 0;
-    //         $data['humidity'][] = $dailyData->avg_humidity ?? 0;
-    //         $data['ppm'][] = $dailyData->avg_ppm ?? 0;
-    //     }
-
-    //     $data['periode'][] = date('F Y', strtotime($month));
-
-    //     return $data;
-    // }
-
     public function getDailyAverages(Request $request)
 {
     $deviceId = $request->input('device_id');
@@ -75,9 +32,9 @@ class MonitoringController extends Controller
     $endOfMonth = Carbon::parse($month)->endOfMonth();
 
     $sensors = Sensor::where('device_id', $deviceId)
-        ->whereBetween('send_at', [$startOfMonth, $endOfMonth])
+        ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
         ->select(
-            DB::raw('DATE(send_at) as date'),
+            DB::raw('DATE(created_at) as date'),
             DB::raw('AVG(water_ph) as avg_water_ph'),
             DB::raw('AVG(temperature) as avg_temperature'),
             DB::raw('AVG(humidity) as avg_humidity'),

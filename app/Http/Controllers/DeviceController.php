@@ -74,7 +74,7 @@ class DeviceController extends Controller
     {
         try {
             $data = $request->validated();
-            $data['guid'] = Str::upper($data['guid']);
+            $data['guid'] = Device::generateGuid($data['garden_id']);
 
             $device = Device::create($data);
 
@@ -156,7 +156,13 @@ class DeviceController extends Controller
     {
         try {
             $device = Device::find($id);
-            $device->update($request->all());
+            $data = $request->all();
+
+            if ($data['garden_id'] != $device->garden_id) {
+                $data['guid'] = Device::generateGuid($data['garden_id']);
+            }
+
+            $device->update($data);
 
             $mqttData = [
                 'device_id' => $device->id,

@@ -13,10 +13,6 @@ const formConfig = {
             name: 'Nama Perkebunan'
         },
         {
-            id: 'guid',
-            name: 'GUID Perangkat'
-        }, 
-        {
             id: 'max_ppm',
             name: 'Maksimal Nutrisi'
         }, 
@@ -25,8 +21,8 @@ const formConfig = {
             name: 'Minimal Nutrisi'
         }, 
         {
-            id: 'note',
-            name: 'Keterangan'
+            id: 'plants',
+            name: 'Tanaman'
         },
     ]
 }
@@ -50,7 +46,7 @@ const getInitData = () => {
             {data: 'garden', name: 'garden'},
             {data: 'max_ppm', name: 'max_ppm'},
             {data: 'min_ppm', name: 'min_ppm'},
-            {data: 'note', name: 'note'},
+            {data: 'plants', name: 'plants'},
             {data: 'status', name: 'status'},
             {data: 'aksi', name: 'aksi'},
         ]
@@ -88,11 +84,10 @@ submitButton.on('click', function () {
 
 const dataForm = () => {
     return {
-        guid: $('#guid').val(),
         garden_id: $('#garden_id').val(),
         max_ppm: $('#max_ppm').val(),
         min_ppm: $('#min_ppm').val(),
-        note: $('#note').val(),
+        plants: $('#plants').val(),
     };
 }
 

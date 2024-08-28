@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Device extends Model
 {
@@ -21,7 +22,7 @@ class Device extends Model
         'max_ppm',
         'min_ppm',
         'status',
-        'note',
+        'plants',
     ];
 
     public function garden()
@@ -37,5 +38,13 @@ class Device extends Model
     public function information()
     {
         return $this->hasMany(Information::class, 'device_id');
+    }
+
+    public static function generateGuid($gardenId)
+    {
+        $latestDevice = self::where('garden_id', $gardenId)->orderBy('id', 'desc')->first();
+        $deviceNumber = $latestDevice ? ($latestDevice->id + 1) : 1;
+        $timestamp = Carbon::now()->format('Ymd');
+        return "KEB-{$gardenId}-{$deviceNumber}-{$timestamp}";
     }
 }

@@ -42,7 +42,7 @@
         <li class="menu-item @if (Request::is('information')) active @endif ">
           <a href="{{ route('information') }}" class="menu-link">
             <i class="menu-icon tf-icons mdi mdi-alert-circle-outline"></i>
-            <div data-i18n="Informasi">Informasi</div>
+            <div data-i18n="Informasi Tanaman">Informasi Tanaman</div>
           </a>
         </li>
       </ul>

@@ -23,25 +23,25 @@ class DeviceUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $deviceId = $this->route('id'); // Assuming the route parameter is named 'device'
-
         return [
-            'guid' => [
-                'required',
-                Rule::unique('device', 'guid')->ignore($deviceId),
-                'regex:/^(?:[0-9A-Fa-f]{2}[:-]){5}(?:[0-9A-Fa-f]{2})$/'
-            ], // Mac Address Format
-            'note' => ['required'],
             'garden_id' => ['required'],
-            'max_ppm' => ['required'],
-            'min_ppm' => ['required'],
+            'max_ppm' => 'required|integer|min:0',
+            'min_ppm' => 'required|integer|min:0',
+            'plants' => ['required'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'guid.regex' => 'The guid must be in MAC address format',
+            'garden_id.required' => 'Nama perkebunan wajib diisi',
+            'max_ppm.required' => 'Maksimal nutrisi wajib diisi',
+            'max_ppm.integer' => 'Maksimal nutrisi harus berupa angka',
+            'max_ppm.min' => 'Maksimal nutrisi harus berupa angka positif',
+            'min_ppm.required' => 'Minimal nutrisi wajib diisi',
+            'min_ppm.integer' => 'Minimal nutrisi harus berupa angka',
+            'min_ppm.min' => 'Minimal nutrisi harus berupa angka positif',
+            'plants.required' => 'Tanaman wajib diisi',
         ];
     }
 }

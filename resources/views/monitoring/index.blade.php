@@ -20,7 +20,7 @@
                             <select class="form-control select2" name="device" id="device">
                                 <option value=""></option>
                                 @foreach($devices as $item)
-                                    <option value="{{ $item->id }}">{{ $item->guid }} - {{ $item->note }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->guid }} - {{ $item->plants }}</option>
                                 @endforeach
                             </select>
                             <div class="mt-3">

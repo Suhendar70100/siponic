@@ -39,8 +39,8 @@ class InformationController extends Controller
         }
 
         return DataTables::of($data)
-            ->addColumn('note', function ($row) {
-                return $row->device->note;
+            ->addColumn('plants', function ($row) {
+                return $row->device->plants;
             })
             ->addColumn('aksi', function ($row) {
                 return "<a href='#' data-id='$row->id' class='mdi mdi-pencil text-warning btn-edit'></a>

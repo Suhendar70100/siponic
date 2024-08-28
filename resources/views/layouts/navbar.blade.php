@@ -370,10 +370,6 @@
                                                 class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </div>
-                                    <div class="flex-grow-1">
-                                        <span class="fw-semibold d-block">John Doe</span>
-                                        <small class="text-muted">Admin</small>
-                                    </div>
                                 </div>
                             </a>
                         </li>

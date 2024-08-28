@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('garden_id')->constrained('garden');
             $table->float('max_ppm');
             $table->float('min_ppm');
-            $table->string('note')->nullable();
+            $table->string('plants', 50);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

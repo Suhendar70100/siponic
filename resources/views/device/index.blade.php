@@ -19,7 +19,7 @@
                         <th>Nama Perkebunan</th>
                         <th>Max PPM (Nutrisi)</th>
                         <th>Min PPM (Nutrisi)</th>
-                        <th>Keterangan</th>
+                        <th>Tanaman</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
